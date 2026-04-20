@@ -11,7 +11,10 @@ import 'objects/platform_block.dart';
 import 'objects/star.dart';
 import 'overlays/hud.dart';
 
-class EmberQuestGame extends FlameGame with HasCollisionDetection, HasKeyboardHandlerComponents {
+/// Classe principal del joc.
+/// Controla la càrrega, l'estat general i la generació del món.
+class EmberQuestGame extends FlameGame
+    with HasCollisionDetection, HasKeyboardHandlerComponents {
   late EmberPlayer _ember;
   double objectSpeed = 0.0;
   late double lastBlockXPosition = 0.0;
@@ -20,6 +23,8 @@ class EmberQuestGame extends FlameGame with HasCollisionDetection, HasKeyboardHa
   int health = 3;
 
   @override
+
+  /// Carrega les imatges necessàries i prepara la càmera del joc.
   Future<void> onLoad() async {
     await images.loadAll([
       'block.png',
@@ -36,15 +41,21 @@ class EmberQuestGame extends FlameGame with HasCollisionDetection, HasKeyboardHa
   }
 
   @override
+
+  /// Defineix el color de fons que tindrà l'escenari.
   Color backgroundColor() {
     return const Color.fromARGB(255, 0, 100, 0); // Cambiado a verde
   }
 
+  /// Inicialitza els segments visibles, el jugador i el HUD.
+  /// El paràmetre indica si s'ha de crear la interfície superior.
   void initializeGame(bool loadHud) {
     final segmentsToLoad = (size.x / 640).ceil();
     final maximumIndex = segments.length - 1;
-    final segmentCount = segmentsToLoad > maximumIndex ? maximumIndex : segmentsToLoad;
+    final segmentCount =
+        segmentsToLoad > maximumIndex ? maximumIndex : segmentsToLoad;
 
+    // Es carreguen els primers trams segons l'amplada de la pantalla.
     for (var i = 0; i <= segmentCount; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
@@ -63,6 +74,7 @@ class EmberQuestGame extends FlameGame with HasCollisionDetection, HasKeyboardHa
     }
   }
 
+  /// Reinicia les variables del joc i torna a crear l'escena.
   void reset() {
     // Reset game state
     starsCollected = 0;
@@ -72,13 +84,18 @@ class EmberQuestGame extends FlameGame with HasCollisionDetection, HasKeyboardHa
     lastBlockKey = UniqueKey();
 
     // Clear all components from the world except HUD
-    world.children.where((component) => component is! Hud).toList().forEach((component) => component.removeFromParent());
+    world.children
+        .where((component) => component is! Hud)
+        .toList()
+        .forEach((component) => component.removeFromParent());
 
     // Reinitialize the game without reloading HUD
     initializeGame(false);
   }
 
   @override
+
+  /// Comprova si el jugador s'ha quedat sense vida.
   void update(double dt) {
     if (health <= 0 && !overlays.isActive('GameOver')) {
       overlays.add('GameOver');
@@ -86,6 +103,7 @@ class EmberQuestGame extends FlameGame with HasCollisionDetection, HasKeyboardHa
     super.update(dt);
   }
 
+  /// Converteix un segment de dades en objectes reals dins del món.
   void loadGameSegments(int segmentIndex, double xPositionOffset) {
     for (final block in segments[segmentIndex]) {
       switch (block.blockType) {

@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../ember_quest.dart';
 
+/// Menú per escollir nivell abans de començar la partida.
 class LevelSelector extends StatelessWidget {
   final EmberQuestGame game;
 
+  /// Rep el joc per poder obrir i tancar overlays.
   const LevelSelector({super.key, required this.game});
 
   @override
+
+  /// Construeix la finestra amb els nivells disponibles.
   Widget build(BuildContext context) {
     const blackTextColor = Color.fromRGBO(0, 0, 0, 1.0);
     const whiteTextColor = Color.fromRGBO(255, 255, 255, 1.0);
@@ -37,6 +41,7 @@ class LevelSelector extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
+                // Tanca el selector i deixa el joc preparat.
                 onPressed: () {
                   game.overlays.remove('LevelSelector');
                 },
@@ -44,6 +49,7 @@ class LevelSelector extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
+                // De moment aquest botó només tanca el selector.
                 onPressed: () {
                   game.overlays.remove('LevelSelector');
                 },
@@ -51,6 +57,7 @@ class LevelSelector extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
+                // Torna enrere i reobre el menú principal.
                 onPressed: () {
                   game.overlays.remove('LevelSelector');
                   game.overlays.add('MainMenu');

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../ember_quest.dart';
 import 'heart.dart';
 
+/// Interfície superior que mostra punts i vides del jugador.
 class Hud extends PositionComponent with HasGameReference<EmberQuestGame> {
+  /// Crea el HUD amb la seva posició i prioritat visual.
   Hud({
     super.position,
     super.size,
@@ -18,6 +20,8 @@ class Hud extends PositionComponent with HasGameReference<EmberQuestGame> {
   late TextComponent _scoreTextComponent;
 
   @override
+
+  /// Carrega el text de puntuació, la icona i els cors de vida.
   Future<void> onLoad() async {
     await super.onLoad();
 
@@ -34,6 +38,7 @@ class Hud extends PositionComponent with HasGameReference<EmberQuestGame> {
     );
     add(_scoreTextComponent);
 
+    // Aquesta icona acompanya el comptador de punts.
     final starSprite = await game.loadSprite('banana.png');
     add(
       SpriteComponent(
@@ -44,6 +49,7 @@ class Hud extends PositionComponent with HasGameReference<EmberQuestGame> {
       ),
     );
 
+    // Es creen tres cors per representar la vida màxima.
     for (var i = 1; i <= 3; i++) {
       final positionX = 40 * i;
       await add(
@@ -57,6 +63,8 @@ class Hud extends PositionComponent with HasGameReference<EmberQuestGame> {
   }
 
   @override
+
+  /// Refresca el text perquè mostri les estrelles recollides.
   void update(double dt) {
     _scoreTextComponent.text = '${game.starsCollected}';
     super.update(dt);

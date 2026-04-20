@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../ember_quest.dart';
 
+/// Pantalla que apareix quan el jugador es queda sense vida.
 class GameOver extends StatelessWidget {
   final EmberQuestGame game;
 
+  /// Rep la referència del joc per poder reiniciar la partida.
   const GameOver({super.key, required this.game});
 
   @override
+
+  /// Construeix el menú final amb el botó per tornar a jugar.
   Widget build(BuildContext context) {
     const blackTextColor = Color.fromRGBO(0, 0, 0, 1.0);
     const whiteTextColor = Color.fromRGBO(255, 255, 255, 1.0);
@@ -40,6 +44,7 @@ class GameOver extends StatelessWidget {
                 width: 200,
                 height: 75,
                 child: ElevatedButton(
+                  // Reinicia l'estat del joc i tanca aquest overlay.
                   onPressed: () {
                     game.reset();
                     game.overlays.remove('GameOver');

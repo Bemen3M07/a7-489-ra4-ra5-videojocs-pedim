@@ -5,15 +5,20 @@ import '../objects/ground_block.dart';
 import '../objects/platform_block.dart';
 import '../objects/star.dart';
 
+/// Aquesta classe guarda la posició d'un objecte i el seu tipus.
+/// Després el joc la fa servir per construir cada segment.
 class Block {
-  // gridPosition position is always segment based X,Y.
-  // 0,0 is the bottom left corner.
-  // 10,10 is the upper right corner.
+  /// La posició es desa en coordenades de graella dins del segment.
   final Vector2 gridPosition;
+
+  /// Indica quina classe d'objecte s'ha de crear en aquesta posició.
   final Type blockType;
+
+  /// Crea un bloc de dades amb posició i tipus d'element.
   Block(this.gridPosition, this.blockType);
 }
 
+/// Llista principal de segments disponibles del nivell.
 final segments = [
   segment0,
   segment1,
@@ -22,6 +27,7 @@ final segments = [
   segment4,
 ];
 
+/// Primer segment amb terra bàsic, plataformes i un enemic.
 final segment0 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
@@ -40,6 +46,7 @@ final segment0 = [
   Block(Vector2(9, 0), GroundBlock),
 ];
 
+/// Segon segment amb plataformes altes, una estrella i un enemic.
 final segment1 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
@@ -58,6 +65,7 @@ final segment1 = [
   Block(Vector2(9, 0), GroundBlock),
 ];
 
+/// Tercer segment amb una pujada de plataformes i una estrella.
 final segment2 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
@@ -79,6 +87,7 @@ final segment2 = [
   Block(Vector2(9, 0), GroundBlock),
 ];
 
+/// Quart segment amb salts més separats i una estrella elevada.
 final segment3 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
@@ -95,6 +104,7 @@ final segment3 = [
   Block(Vector2(9, 0), GroundBlock),
 ];
 
+/// Cinquè segment amb diversos obstacles i enemics d'aigua.
 final segment4 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),

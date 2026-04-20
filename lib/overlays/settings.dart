@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../ember_quest.dart';
 
+/// Menú de configuració bàsica del joc.
 class Settings extends StatelessWidget {
   final EmberQuestGame game;
 
+  /// Rep la referència del joc per tornar al menú principal.
   const Settings({super.key, required this.game});
 
   @override
+
+  /// Construeix la finestra amb opcions de configuració simulades.
   Widget build(BuildContext context) {
     const blackTextColor = Color.fromRGBO(0, 0, 0, 1.0);
     const whiteTextColor = Color.fromRGBO(255, 255, 255, 1.0);
@@ -53,6 +57,7 @@ class Settings extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
+                // Torna al menú principal des de la configuració.
                 onPressed: () {
                   game.overlays.remove('Settings');
                   game.overlays.add('MainMenu');
